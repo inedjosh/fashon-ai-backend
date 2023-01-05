@@ -1,0 +1,9 @@
+node_modules/
+.env
+otps/
+app.log
+error.log
+logs/
+.redis.env
+data/tmp
+dist/
