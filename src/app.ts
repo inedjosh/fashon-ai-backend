@@ -11,7 +11,11 @@ import path from "path";
 import v1Routes from "./routes/v1";
 import { sendNotFoundError } from "./helpers/errors/commonAppErrors";
 import { AppError, handleAppError } from "./utils/error/AppError";
+import sendSuccessApiResponse from "./utils/response/sendSuccessApiResponse";
+import { connectDatabase } from "./config/database";
 
+// connect DB
+connectDatabase()
 
 const app = express();
 
@@ -24,6 +28,16 @@ app.use(cors());
 
 
 app.use("/v1", v1Routes);
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.get("/", (req: Request, res: Response, next: NextFunction) => {
+  return sendSuccessApiResponse({
+    res,
+    statusCode: 200,
+    message: "Welcome to Interior-AI Backend API 😁.",
+    data: {},
+  });
+});
 
 app.all("*", (req, res, next) => {
   next(sendNotFoundError("Invalid route! 🙄"));

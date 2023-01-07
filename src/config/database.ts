@@ -17,11 +17,11 @@ function getDatabaseURL(environment: any) {
 
 export const connectDatabase = () => {
   const databaseUrl = getDatabaseURL(configs.NODE_ENV);
-
+  mongoose.set("strictQuery", false);
   mongoose
     .connect(databaseUrl)
     .then(() => {
-      logger.info("Connected to DB 😊");
+      logger.info(`Connected to DB - ${configs.NODE_ENV} `);
     })
     .catch((error) => {
       logger.error(`${error.name}: ${error.message}`);
