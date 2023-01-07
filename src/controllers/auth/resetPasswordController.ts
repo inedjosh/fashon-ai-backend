@@ -3,7 +3,6 @@ import { validationResult } from "express-validator";
 import { sendInvalidOtpError, sendRequestCouldNotBeCompletedError, sendUserAccountNotAvailableError } from "../../helpers/errors/commonAppAuthErrors";
 import { sendBadRequestError } from "../../helpers/errors/commonAppErrors";
 import getErrorMessagesFromArray from "../../helpers/getErrorMessagesFromArray";
-import { UserDocument } from "../../models/User";
 import asyncHandler from "../../utils/asyncHandler";
 import checkIfOtpIsValidAndHasNotExpired from "../../utils/auth/checkIfOtpIsValidAndHasNotExpired";
 import findUserByEmail from "../../utils/auth/findUserByEmail";
