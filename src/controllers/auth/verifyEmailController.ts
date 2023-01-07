@@ -24,29 +24,29 @@ export default asyncHandler(
 
         if (!verificationCode || !email) next(sendBadRequestError('Invalid verification string'))
 
-        const findUser = await findUserByEmail(email)
+        const user = await findUserByEmail(email)
 
-        if (!findUser) next(sendUserAccountNotAvailableError())
+        if (!user) next(sendUserAccountNotAvailableError())
 
-        if (!findUser.verificationString) 
+        if (!user.verificationString) 
             next(sendBadRequestError('Verification expired or is invalid! Please try again'))
         
       
         // verify verificationString
         const checkIfStringIsValid = await checkIfVerificationStringIsExpired(
             verificationCode,
-            findUser.verificationString,
-            findUser.verificationStringExpiry
+            user.verificationString,
+            user.verificationStringExpiry
         )
         
         if (!checkIfStringIsValid) next(sendBadRequestError('Verification expired or is invalid! Please try again'))
             
-        findUser.verificationString = null;
-        findUser.verificationStringExpiry = null;
-        findUser.trials = 3;
-        findUser.account_verified = true;
+        user.verificationString = null;
+        user.verificationStringExpiry = null;
+        user.trials = 3;
+        user.account_verified = true;
 
-        if(!( await findUser.save())) next(sendBadRequestError('Something went wrong, Please try again'))
+        if(!( await user.save())) next(sendBadRequestError('Something went wrong, Please try again'))
 
         return sendSuccessApiResponse({
                 res,

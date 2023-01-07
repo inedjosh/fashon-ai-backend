@@ -13,21 +13,21 @@ export default asyncHandler(
 
         if (!email || !password) next(sendInvalidLoginCredentialsError())
         
-        const findUser = await findUserByEmail(email)
+        const user = await findUserByEmail(email)
         
-        if (!findUser) next(sendUserAccountNotAvailableError())
+        if (!user) next(sendUserAccountNotAvailableError())
         
-        console.log(password, findUser.password);
+        console.log(password, user.password);
 
          // compare passwords
-        const validatePassword = await findUser.isValidPassword(
+        const validatePassword = await user.isValidPassword(
              password,
-             findUser.password
+             user.password
         );
 
         logger.info(validatePassword)
         if (!validatePassword) next(sendInvalidLoginCredentialsError())
         
-      createAuthTokenAndSendToUser(res, findUser, 'logged')
+      createAuthTokenAndSendToUser(res, user, 'logged')
     }
 )

@@ -12,19 +12,19 @@ export default asyncHandler(
         
         if (!email) next(sendProvideEmailError())
 
-        const findUser = await findUserByEmail(email)
+        const user = await findUserByEmail(email)
 
-        if (!findUser) next(sendUserAccountNotAvailableError())
+        if (!user) next(sendUserAccountNotAvailableError())
         
         // generate otp
-        const otp = findUser.generateOtp()
+        const otp = user.generateOtp()
 
-        if (!(await findUser.save())) next(sendRequestCouldNotBeCompletedError())
+        if (!(await user.save())) next(sendRequestCouldNotBeCompletedError())
         
         // send otp to users mail
          await sendForgotPasswordOtp({
             email: email,
-            name: findUser.first_name,
+            name: user.first_name,
             otp: otp
          })
         

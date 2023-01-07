@@ -8,5 +8,5 @@ export type OtpEmails = {
 export type successEmails = {
   email: string;
   name: string;
-  link: string;
+  link?: string;
 };
