@@ -1,9 +1,10 @@
 import bcrypt from 'bcryptjs'
+import logger from '../logger'
 
 export const hashString = async (string: string) => {
-  const salt = await bcrypt.genSalt(10)
-  const hashed = await bcrypt.hash(string, salt)
-  return hashed
+  const hash = bcrypt.hashSync(string, 10);
+  
+  return hash;
 }
 
 export const compareString = async ({
@@ -14,5 +15,6 @@ export const compareString = async ({
   hash: string
 }) => {
   const result = await bcrypt.compare(string, hash)
+  logger.info(result)
   return result
 }

@@ -2,6 +2,7 @@ import { model, Schema, Document } from 'mongoose'
 import configs from '../config/config'
 import generateString from '../utils/auth/generateString'
 import { compareString, hashString } from '../utils/auth/hash'
+import logger from '../utils/logger'
 
 export interface UserDocument extends Document {
   email: string
@@ -100,22 +101,22 @@ userSchema.index({ first_name: 1 })
 userSchema.index({ last_name: 1 })
 userSchema.index({ phone_number: 1 })
 
-userSchema.pre('save', async function (next) {
-  /**
-   * Checks if password was changed before attempting
-   * to hash
-   * isModified = was password changed?
-   */
-  const user = this as UserDocument
+// userSchema.pre('save', async function (next) {
+//   /**
+//    * Checks if password was changed before attempting
+//    * to hash
+//    * isModified = was password changed?
+//    */
+//   const user = this as UserDocument
 
-  if (!user.isModified('password')) {
-    return next()
-  }
+//   if (!user.isModified('password')) {
+//     return next()
+//   }
 
-  user.password = await hashString(user.password)
+//   user.password = await hashString(user.password)
 
-  next()
-})
+//   next()
+// })
 
 userSchema.pre('save', function (next) {
   const user = this as UserDocument
@@ -155,20 +156,20 @@ userSchema.virtual('id').get(function (this: UserDocument) {
   return this?._id
 })
 
-userSchema.methods.generateOtp = async function () {
-  const user = this as UserDocument
+// userSchema.methods.generateOtp = async function () {
+//   const user = this as UserDocument
 
-  const otp = generateString(5)
+//   const otp = generateString(5)
+//     logger.info(otp)
+//   //encrypt otp and save to DB
+//   user.otp = await hashString(otp)
 
-  //encrypt otp and save to DB
-  user.otp = await hashString(otp)
+//   // save otp expiry date to DB
+//   user.otp_time_expiry =
+//     Date.now() + 1000 * 60 * parseInt(configs.OTP_TIME_EXPIRY_MINUTES)
 
-  // save otp expiry date to DB
-  user.otp_time_expiry =
-    Date.now() + 1000 * 60 * parseInt(configs.OTP_TIME_EXPIRY_MINUTES)
-
-  return otp
-}
+//   return otp
+// }
 
 const UserModel = model<UserDocument>('User', userSchema)
 

@@ -28,8 +28,8 @@ router.post('/verify', verifyValidators, verifyEmailController)
 /** /v1/auth/forgot_password */
 router.post('/forgot_password', forgotPasswordController)
 
-/** /v1/auth/resend_forgot_password */
-router.post('resend_forgot_password', resendForgotPasswordController)
+/** /v1/auth/resendForgot_password */
+router.post('/resend_forgot_password', resendForgotPasswordController)
 
 /** /v1/auth/reset_password */
 router.post('/reset_password', resetPasswordValidators, resetPasswordController)

@@ -25,7 +25,7 @@ export default asyncHandler(
     if (!(await user.save())) next(sendRequestCouldNotBeCompletedError())
 
     // send otp to users mail
-    await sendResendForgotPasswordOtp({
+     sendResendForgotPasswordOtp({
       email: email,
       name: user.first_name,
       otp: otp,

@@ -49,7 +49,7 @@ export default asyncHandler(
     if (!user) next(sendRequestCouldNotBeCompletedError())
 
     // send user registration succesful mail
-    await sendAccountRegistrationSuccessfulEmail({
+     sendAccountRegistrationSuccessfulEmail({
       email: req.body.email,
       name: user.first_name,
       link: `${configs.CLIENT_URL}?verificationCode=${verificationString}&email=${req.body.email}`,

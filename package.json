@@ -12,6 +12,17 @@
     "watch": "tsc --watch",
     "audit": "npm audit &  npm audit fix"
   },
+  "husky": {
+  "hooks": {
+    "pre-commit": "lint-staged"
+   }
+ },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "author": "Inedu Joshua",
   "license": "ISC",
   "dependencies": {

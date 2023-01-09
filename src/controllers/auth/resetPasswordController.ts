@@ -10,6 +10,7 @@ import getErrorMessagesFromArray from '../../helpers/getErrorMessagesFromArray'
 import asyncHandler from '../../utils/asyncHandler'
 import checkIfOtpIsValidAndHasNotExpired from '../../utils/auth/checkIfOtpIsValidAndHasNotExpired'
 import findUserByEmail from '../../utils/auth/findUserByEmail'
+import { hashString } from '../../utils/auth/hash'
 import { sendPasswordResetSuccessfulEmail } from '../../utils/emails/auth/successEmails'
 import sendSuccessApiResponse from '../../utils/response/sendSuccessApiResponse'
 
@@ -38,16 +39,17 @@ export default asyncHandler(
 
     if (!otpIsValid) next(sendInvalidOtpError())
 
-    user.password = password
+        // hash password and store in db
+        const hashedPassword = await hashString(password)
+
+    user.password = hashedPassword
     user.otp = undefined
     user.otp_time_expiry = undefined
 
-    if (!(await user.save())) {
-      next(sendRequestCouldNotBeCompletedError())
-    }
+    await user.save()
 
     // send password successfully reset email
-    await sendPasswordResetSuccessfulEmail({
+     sendPasswordResetSuccessfulEmail({
       email: user.email,
       name: user.first_name,
     })

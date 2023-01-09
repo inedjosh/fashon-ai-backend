@@ -1,31 +1,27 @@
-import asyncHandler from '../../utils/asyncHandler'
-import { NextFunction, Request, Response } from 'express'
-import {
-  sendInvalidLoginCredentialsError,
-  sendUserAccountNotAvailableError,
-} from '../../helpers/errors/commonAppAuthErrors'
-import findUserByEmail from '../../utils/auth/findUserByEmail'
-import createAuthTokenAndSendToUser from '../../utils/auth/createAuthTokenAndSendToUser'
-import logger from '../../utils/logger'
-import { compareString } from '../../utils/auth/hash'
-import bcrypt from 'bcrypt'
+import { Request, Response, NextFunction } from 'express';
+import { sendInvalidLoginCredentialsError, sendUserAccountNotAvailableError } from '../../helpers/errors/commonAppAuthErrors';
+import { sterilizeUserObj } from '../../helpers/sterilizers';
+import createAuthTokenAndSendToUser from '../../utils/auth/createAuthTokenAndSendToUser';
+import findUserByEmail from '../../utils/auth/findUserByEmail';
+import { compareString } from '../../utils/auth/hash';
+import logger from '../../utils/logger';
+import AsyncHandler from './../../utils/asyncHandler'
 
-export default asyncHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password } = req.body
+export default AsyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => { 
+    const { email, password } = req.body;
 
-    if (!email || !password) next(sendInvalidLoginCredentialsError())
-
+    if (!email && !password) return next(sendInvalidLoginCredentialsError())
+    
     const user = await findUserByEmail(email)
 
-    if (!user) next(sendUserAccountNotAvailableError())
-
-    // compare passwords
-    const validatePassword = await bcrypt.compare(password, user.password)
-
-    logger.info(validatePassword)
-    if (!validatePassword) next(sendInvalidLoginCredentialsError())
+    if (!user) return next(sendUserAccountNotAvailableError())
+    
+    const passwordCheck = await compareString({ string: password, hash: user.password })
+    
+    if (!passwordCheck) return next(sendInvalidLoginCredentialsError())
 
     createAuthTokenAndSendToUser(res, user, 'logged')
   }
+
 )
