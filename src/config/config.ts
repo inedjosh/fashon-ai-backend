@@ -29,7 +29,13 @@ export const configs = {
 
   VERIFCATION_TIME_EXPIRY_MINUTES: process.env.VERIFCATION_TIME_EXPIRY_MINUTES || "",
 
-  CLIENT_URL: process.env.CLIENT_URL || ""
+  CLIENT_URL: process.env.CLIENT_URL || "",
+
+  STABLE_DIFFUSION_KEY: process.env.STABLE_DIFFUSION_KEY || "",
+
+  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME || "",
+  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY || "",
+  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET || ""
 };
 
 export default configs;

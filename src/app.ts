@@ -14,8 +14,10 @@ import { AppError, handleAppError } from "./utils/error/AppError";
 import sendSuccessApiResponse from "./utils/response/sendSuccessApiResponse";
 import { connectDatabase } from "./config/database";
 
+
 // connect DB
 connectDatabase()
+
 
 const app = express();
 

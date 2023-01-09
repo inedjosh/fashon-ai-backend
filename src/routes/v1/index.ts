@@ -5,10 +5,13 @@ import { Router,  json,
   urlencoded, } from 'express'
 import sendSuccessApiResponse from '../../utils/response/sendSuccessApiResponse';
 import authRoutes from './authRoutes'
+import imageRoutes from './imageRoutes'
+
 
 const router = Router()
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+/** /v1 */
 router.get("/", (req: Request, res: Response, next: NextFunction) => {
   return sendSuccessApiResponse({
     res,
@@ -18,7 +21,12 @@ router.get("/", (req: Request, res: Response, next: NextFunction) => {
   });
 });
 
+/** /v1/auth/ */
 router.use('/auth', authRoutes)
+
+/** /v1/image/ */
+router.use('/image', imageRoutes);
+
 
 
 export default router;
