@@ -21,7 +21,7 @@ export default asyncHandler(
 
   logger.info(decodedUser);
 
-  req.user = decodedUser;
+//   req.user = decodedUser;
  
   next();
 }
