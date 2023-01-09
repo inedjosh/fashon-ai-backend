@@ -1,13 +1,13 @@
-import cryptoRandomString from "crypto-random-string";
+import cryptoRandomString from 'crypto-random-string'
 
 export const generateRandomCharsOtp = (length: number) => {
-  const otp = cryptoRandomString({ length, type: "alphanumeric" });
+  const otp = cryptoRandomString({ length, type: 'alphanumeric' })
 
-  return otp;
-};
+  return otp
+}
 
 export const generateRandomNumbersOtp = (length: number) => {
-  const otp = cryptoRandomString({ length, type: "numeric" });
+  const otp = cryptoRandomString({ length, type: 'numeric' })
 
-  return otp;
-};
+  return otp
+}

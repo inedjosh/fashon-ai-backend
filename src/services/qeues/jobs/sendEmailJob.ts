@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { initializeQueue } from "../../../config/queues";
-import logger from "../../../utils/logger";
-import tryCatchPromise from "../../../utils/tryCatchPromise";
-import { sendEmail } from "../../emailService";
-import { SendEmail } from "../../types";
+import { initializeQueue } from '../../../config/queues'
+import logger from '../../../utils/logger'
+import tryCatchPromise from '../../../utils/tryCatchPromise'
+import { sendEmail } from '../../emailService'
+import { SendEmail } from '../../types'
 
-const queue = initializeQueue("Emails-jobs");
+const queue = initializeQueue('Emails-jobs')
 
 const sendEmailJob = async (data: SendEmail) => {
   // Producer
@@ -13,24 +13,24 @@ const sendEmailJob = async (data: SendEmail) => {
     removeOnComplete: true,
     attempts: 2,
     backoff: {
-      type: "fixed",
+      type: 'fixed',
       delay: 3000,
     },
     timeout: 5000,
-  });
+  })
 
-  return true;
-};
+  return true
+}
 
 // Consumer
 queue.process(async (job: any) => {
-  tryCatchPromise(await sendEmail(job.data));
-});
+  tryCatchPromise(await sendEmail(job.data))
+})
 
-queue.on("failed", (job, error) => {
+queue.on('failed', (job, error) => {
   logger.error(
-    `Job <${job.queue.name}> failed after specified retries with error ${error}`,
-  );
-});
+    `Job <${job.queue.name}> failed after specified retries with error ${error}`
+  )
+})
 
-export default sendEmailJob;
+export default sendEmailJob

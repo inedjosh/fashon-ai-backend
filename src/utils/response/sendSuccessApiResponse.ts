@@ -1,4 +1,4 @@
-import { SucessApiResponse } from "./types";
+import { SucessApiResponse } from './types'
 
 export default ({
   res,
@@ -7,8 +7,8 @@ export default ({
   data,
 }: SucessApiResponse) => {
   return res.status(statusCode).json({
-    status: "success",
+    status: 'success',
     message: message,
     data: data,
-  });
-};
+  })
+}
