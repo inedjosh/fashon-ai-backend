@@ -9,12 +9,10 @@ import {
 } from '../../helpers/errors/commonAppErrors'
 import getErrorMessagesFromArray from '../../helpers/getErrorMessagesFromArray'
 import ImageModel from '../../models/Image'
-import { uploadImage } from '../../services/cloudinary'
 import asyncHandler from '../../utils/asyncHandler'
 import findUserByEmail from '../../utils/auth/findUserByEmail'
 import { createOneFactory } from '../../utils/factories/factories'
 import checkTrials from '../../utils/image/checkTrials'
-import logger from '../../utils/logger'
 import sendSuccessApiResponse from '../../utils/response/sendSuccessApiResponse'
 
 export default asyncHandler(

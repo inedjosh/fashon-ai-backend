@@ -13,4 +13,10 @@ router.post('/text', textToImageValidator, isAuth, textToImage)
 /** /v1/image/image */
 router.post('/image', imageToImageValidator, isAuth, imageToImage)
 
+/** /v1/image/image */
+router.get('/images/:page', imageToImage)
+
+/** /v1/image/image */
+router.get('/:email&:page', isAuth, imageToImage)
+
 export default router
