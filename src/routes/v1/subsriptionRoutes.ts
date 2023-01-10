@@ -8,7 +8,7 @@ import isAuth from '../../middleware/is-auth'
 
 const router = Router()
 
-/** /v1/initialize_suscribtion/ */
+/** /v1/subscribe/ */
 router.post(
   '/',
   subscriptionValidators,
@@ -16,7 +16,7 @@ router.post(
   initializeSubscriptionController
 )
 
-/** /v1/image/verify_subscription */
+/** /v1/subscribe/ */
 router.get('/:reference&:email', isAuth, verifySubscriptionController)
 
 export default router

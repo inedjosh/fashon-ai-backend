@@ -6,7 +6,8 @@ import { verifyJwt } from '../utils/auth/jwt'
 
 export default asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers['authorization']
+    try {
+      const authHeader = req.headers['authorization']
 
     if (!authHeader) {
       return next(
@@ -30,5 +31,12 @@ export default asyncHandler(
     req.body.user = decoded
 
     next()
+    } catch (error) {
+      return next(
+        sendUnAuthorizedError(
+          'Request could not be authorized, please login again.'
+        )
+      )
+    }
   }
 )

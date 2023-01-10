@@ -74,7 +74,7 @@ export default asyncHandler(
         model: ImageModel,
         fields: {
           userId: user._id,
-          imageUrl: result.data.output,
+          imageUrl: result.data.output[0],
         },
       }))
     ) {
@@ -82,6 +82,10 @@ export default asyncHandler(
         sendUnProcessableEntityError('Something went wrong, request failed')
       )
     }
+
+    user.trials -= 1;
+
+   if(!( await user.save())) return next(sendUnProcessableEntityError('Something went wrong, request failed'))
 
     return sendSuccessApiResponse({
       res,

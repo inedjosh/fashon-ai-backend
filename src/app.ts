@@ -13,6 +13,7 @@ import { sendNotFoundError } from './helpers/errors/commonAppErrors'
 import { AppError, handleAppError } from './utils/error/AppError'
 import sendSuccessApiResponse from './utils/response/sendSuccessApiResponse'
 import { connectDatabase } from './config/database'
+import ejs from 'ejs'
 
 // connect DB
 connectDatabase()
@@ -22,6 +23,10 @@ const app = express()
 // Express body parsers
 app.use(json({ limit: '50kb' }))
 app.use(urlencoded({ extended: false, limit: '50kb' }))
+
+
+// view engine setup
+app.set('view engine', 'ejs');
 
 // CORS middleware
 app.use(cors())
