@@ -39,8 +39,8 @@ export default asyncHandler(
 
     if (!otpIsValid) next(sendInvalidOtpError())
 
-        // hash password and store in db
-        const hashedPassword = await hashString(password)
+    // hash password and store in db
+    const hashedPassword = await hashString(password)
 
     user.password = hashedPassword
     user.otp = undefined
@@ -49,7 +49,7 @@ export default asyncHandler(
     await user.save()
 
     // send password successfully reset email
-     sendPasswordResetSuccessfulEmail({
+    sendPasswordResetSuccessfulEmail({
       email: user.email,
       name: user.first_name,
     })

@@ -26,20 +26,19 @@ export default asyncHandler(
     // generate otp
     const otp = generateString(5)
 
+    //encrypt otp and save to DB
+    user.otp = await hashString(otp)
 
-  //encrypt otp and save to DB
-  user.otp = await hashString(otp)
-
-  // save otp expiry date to DB
-  user.otp_time_expiry =
-    Date.now() + 1000 * 60 * parseInt(configs.OTP_TIME_EXPIRY_MINUTES)
+    // save otp expiry date to DB
+    user.otp_time_expiry =
+      Date.now() + 1000 * 60 * parseInt(configs.OTP_TIME_EXPIRY_MINUTES)
 
     if (!(await user.save())) next(sendRequestCouldNotBeCompletedError())
 
-        logger.info(otp)
-        
+    logger.info(otp)
+
     // send otp to users mail
-     sendForgotPasswordOtp({
+    sendForgotPasswordOtp({
       email: email,
       name: user.first_name,
       otp: otp,

@@ -1,3 +1,4 @@
+import { profile } from 'console'
 import {
   Router,
   json,
@@ -28,5 +29,11 @@ router.use('/auth', authRoutes)
 
 /** /v1/image/ */
 router.use('/image', imageRoutes)
+
+/** /v1/subscribe/ */
+router.use('/subscribe', imageRoutes)
+
+/** /v1/profile/ */
+router.use('/profile')
 
 export default router
