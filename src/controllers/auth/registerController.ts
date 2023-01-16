@@ -16,6 +16,7 @@ import getErrorMessagesFromArray from '../../helpers/getErrorMessagesFromArray'
 
 export default asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
+    logger.info('hit route')
     const errors = validationResult(req)
 
     if (!errors.isEmpty()) {
@@ -46,7 +47,7 @@ export default asyncHandler(
       },
     })
 
-    if (!user) next(sendRequestCouldNotBeCompletedError())
+    if (!user) return next(sendRequestCouldNotBeCompletedError())
 
     // send user registration succesful mail
     sendAccountRegistrationSuccessfulEmail({

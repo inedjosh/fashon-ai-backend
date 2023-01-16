@@ -3,6 +3,7 @@ import forgotPasswordController from '../../controllers/auth/forgotPasswordContr
 import loginController from '../../controllers/auth/loginController'
 import registerController from '../../controllers/auth/registerController'
 import resendForgotPasswordController from '../../controllers/auth/resendForgotPasswordController'
+import ResendVerificationEmailController from '../../controllers/auth/ResendVerificationEmailController'
 import resetPasswordController from '../../controllers/auth/resetPasswordController'
 import verifyEmailController from '../../controllers/auth/verifyEmailController'
 import registerValidators from '../../helpers/validators/registerValidators'
@@ -24,6 +25,9 @@ router.post('/login', loginController)
 
 /** /v1/auth/verify */
 router.post('/verify', verifyValidators, verifyEmailController)
+
+/** /v1/auth/resend_verification */
+router.get('/resend_verification/:email', ResendVerificationEmailController)
 
 /** /v1/auth/forgot_password */
 router.post('/forgot_password', forgotPasswordController)
