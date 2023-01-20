@@ -17,23 +17,23 @@ export default async (res: Response, user: any, action: string) => {
     configs.JWT_REFRESH_SECRET
   )
 
-   const cookieOptions = {
+  const cookieOptions = {
     expires: new Date(
       // convert to milliseconds
-      Date.now() + 1000 * 60 * 60 * 24 * 7, // 1week
+      Date.now() + 1000 * 60 * 60 * 24 * 7 // 1week
     ),
     httpOnly: false,
     secure: false,
-  };
+  }
 
   if (appInProductionEnvironment()) {
-    cookieOptions.secure = true;
-    cookieOptions.httpOnly = true;
+    cookieOptions.secure = true
+    cookieOptions.httpOnly = true
   }
 
   res.cookie('refresh_token', refresh_token, cookieOptions)
 
-  console.log(res.cookie);
+  console.log(res.cookie)
 
   return sendSuccessApiResponse({
     res,

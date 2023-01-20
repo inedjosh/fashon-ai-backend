@@ -26,7 +26,7 @@ export default asyncHandler(
       refresh_token,
       configs.JWT_REFRESH_SECRET
     )
-console.log('line-2',decoded);
+    console.log('line-2', decoded)
     if (!decoded)
       return next(
         sendUnAuthorizedError(
@@ -49,10 +49,10 @@ console.log('line-2',decoded);
     return sendSuccessApiResponse({
       res,
       message: 'access granted, token refreshed',
-        data: {
-            access_token,
-            user:  sterilizeUserObj(user),
-        },
+      data: {
+        access_token,
+        user: sterilizeUserObj(user),
+      },
       status: 'success',
     })
   }

@@ -32,10 +32,12 @@ app.use(cookieParser())
 app.set('view engine', 'ejs')
 
 // CORS middleware
-app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true
-}))
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+  })
+)
 
 app.use('/v1', v1Routes)
 
