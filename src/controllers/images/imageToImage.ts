@@ -83,9 +83,12 @@ export default asyncHandler(
       )
     }
 
-    user.trials -= 1;
+    user.trials -= 1
 
-   if(!( await user.save())) return next(sendUnProcessableEntityError('Something went wrong, request failed'))
+    if (!(await user.save()))
+      return next(
+        sendUnProcessableEntityError('Something went wrong, request failed')
+      )
 
     return sendSuccessApiResponse({
       res,

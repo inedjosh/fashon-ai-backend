@@ -14,6 +14,7 @@ import { AppError, handleAppError } from './utils/error/AppError'
 import sendSuccessApiResponse from './utils/response/sendSuccessApiResponse'
 import { connectDatabase } from './config/database'
 import ejs from 'ejs'
+import cookieParser from 'cookie-parser'
 
 // connect DB
 connectDatabase()
@@ -24,12 +25,17 @@ const app = express()
 app.use(json({ limit: '50kb' }))
 app.use(urlencoded({ extended: false, limit: '50kb' }))
 
+// Setup cookie
+app.use(cookieParser())
 
 // view engine setup
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs')
 
 // CORS middleware
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}))
 
 app.use('/v1', v1Routes)
 

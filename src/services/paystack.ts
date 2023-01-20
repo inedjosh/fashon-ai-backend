@@ -15,7 +15,9 @@ export const initializeCharge = async ({
   const response = await postRequest({
     endpoint: url,
     data: { email, amount },
-      headers: { headers: `Authorization: Bearer ${configs.PAYSTACK_SECRET_KEY}` }
+    headers: {
+      headers: `Authorization: Bearer ${configs.PAYSTACK_SECRET_KEY}`,
+    },
   })
 
   return response.data

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import forgotPasswordController from '../../controllers/auth/forgotPasswordController'
 import loginController from '../../controllers/auth/loginController'
+import refreshController from '../../controllers/auth/refreshController'
 import registerController from '../../controllers/auth/registerController'
 import resendForgotPasswordController from '../../controllers/auth/resendForgotPasswordController'
 import ResendVerificationEmailController from '../../controllers/auth/ResendVerificationEmailController'
@@ -9,6 +10,7 @@ import verifyEmailController from '../../controllers/auth/verifyEmailController'
 import registerValidators from '../../helpers/validators/registerValidators'
 import resetPasswordValidators from '../../helpers/validators/resetPasswordValidators'
 import verifyValidators from '../../helpers/validators/verifyValidators'
+import sendSuccessApiResponse from '../../utils/response/sendSuccessApiResponse'
 
 const router = Router()
 
@@ -22,6 +24,9 @@ router.post('/register', registerValidators, registerController)
 
 /** /v1/auth/login */
 router.post('/login', loginController)
+
+/** /v1/auth/login */
+router.get('/refresh', refreshController)
 
 /** /v1/auth/verify */
 router.post('/verify', verifyValidators, verifyEmailController)
