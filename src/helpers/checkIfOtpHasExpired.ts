@@ -5,6 +5,6 @@ export default (otpExpiryTime: string | number): boolean => {
   if (otpDate < now) {
     return true
   }
-
   return false
+
 }
