@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
+import configs from '../config/config'
 import logger from './../utils/logger'
 
 type ApiRequest = {
@@ -15,11 +16,14 @@ axios.defaults.timeout = 25000000
 export const getRequest = async ({ endpoint, headers }: ApiRequest) => {
   try {
     let response
+    console.log(headers)
     if (headers) {
       response = await axios.request({
         url: endpoint,
         method: 'GET',
-        headers: { ...headers },
+        headers: {
+          Authorization: 'Bearer ' + configs.PAYSTACK_SECRET_KEY,
+        },
       })
     } else {
       response = await axios.get(endpoint)
@@ -36,17 +40,16 @@ export const getRequest = async ({ endpoint, headers }: ApiRequest) => {
 
 export const postRequest = async ({ endpoint, data, headers }: ApiRequest) => {
   try {
-    let response
-    if (headers) {
-      response = await axios.request({
-        url: endpoint,
-        method: 'POST',
-        data: data,
-        headers: { ...headers },
-      })
-    } else {
-      response = await axios.post(endpoint, { ...data })
-    }
+    console.log({ ...headers })
+
+    let response = await axios.request({
+      url: endpoint,
+      method: 'POST',
+      data: data,
+      headers: {
+       ...headers
+      },
+    })
 
     return response
   } catch (error: any) {

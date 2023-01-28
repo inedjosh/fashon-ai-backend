@@ -7,6 +7,8 @@ import { initializeCharge } from '../../services/paystack'
 import sendSuccessApiResponse from '../../utils/response/sendSuccessApiResponse'
 import { validationResult } from 'express-validator'
 import getErrorMessagesFromArray from '../../helpers/getErrorMessagesFromArray'
+import configs from '../../config/config'
+import FlutterwaveApi from '../../services/flutterwave'
 
 export default asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -31,7 +33,7 @@ export default asyncHandler(
     if (!user) return next(sendUserAccountNotAvailableError())
 
     // initialize charge
-    const response = await initializeCharge({ email, amount })
+    // const response = await initializeCharge({ email, amount }) // paystack
 
     return sendSuccessApiResponse({
       res,

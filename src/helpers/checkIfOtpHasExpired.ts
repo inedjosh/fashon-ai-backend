@@ -6,5 +6,4 @@ export default (otpExpiryTime: string | number): boolean => {
     return true
   }
   return false
-
 }

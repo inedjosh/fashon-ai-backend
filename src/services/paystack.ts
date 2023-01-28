@@ -10,14 +10,15 @@ export const initializeCharge = async ({
   email: string
   amount: number
 }) => {
+
   const url = 'https://api.paystack.co/transaction/initialize'
 
   const response = await postRequest({
     endpoint: url,
     data: { email, amount },
     headers: {
-      headers: `Authorization: Bearer ${configs.PAYSTACK_SECRET_KEY}`,
-    },
+      Authorization: `Bearer ${configs.PAYSTACK_SECRET_KEY}`
+    }
   })
 
   return response.data
