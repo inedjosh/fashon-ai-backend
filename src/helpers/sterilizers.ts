@@ -10,3 +10,13 @@ export const sterilizeUserObj = (obj: UserDocument) => {
     trials: 3,
   }
 }
+
+export const sterilizeCharge = (obj: any) => {
+  return {
+    amount: obj.data.amount,
+    paid_at: obj.data.paid_at,
+    channel: obj.data.channel,
+    currency: obj.data.currency,
+    reference: obj.data.reference,
+  }
+}

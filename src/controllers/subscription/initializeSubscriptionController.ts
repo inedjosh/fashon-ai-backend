@@ -2,13 +2,21 @@ import { Request, Response, NextFunction } from 'express'
 import asyncHandler from '../../utils/asyncHandler'
 import { sendBadRequestError } from '../../helpers/errors/commonAppErrors'
 import findUserByEmail from '../../utils/auth/findUserByEmail'
-import { sendUserAccountNotAvailableError } from '../../helpers/errors/commonAppAuthErrors'
+import {
+  sendRequestCouldNotBeCompletedError,
+  sendUserAccountNotAvailableError,
+} from '../../helpers/errors/commonAppAuthErrors'
 import { initializeCharge } from '../../services/paystack'
 import sendSuccessApiResponse from '../../utils/response/sendSuccessApiResponse'
 import { validationResult } from 'express-validator'
 import getErrorMessagesFromArray from '../../helpers/getErrorMessagesFromArray'
 import configs from '../../config/config'
-import FlutterwaveApi from '../../services/flutterwave'
+import generateRef from '../../utils/subscribtion/generateRef'
+import SubscriptionModel from '../../models/Subscription'
+import {
+  createOneFactory,
+  updateOneFactory,
+} from '../../utils/factories/factories'
 
 export default asyncHandler(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -32,14 +40,16 @@ export default asyncHandler(
 
     if (!user) return next(sendUserAccountNotAvailableError())
 
+    const trx_reference = generateRef()
+
     // initialize charge
-    // const response = await initializeCharge({ email, amount }) // paystack
+    const response = await initializeCharge({ email, amount, trx_reference }) // paystack
 
     return sendSuccessApiResponse({
       res,
       statusCode: 201,
       message: 'Succesfully generated charge',
-      data: { data: response },
+      data: { data: response.data },
     })
   }
 )

@@ -26,7 +26,7 @@ export default asyncHandler(
       refresh_token,
       configs.JWT_REFRESH_SECRET
     )
-    console.log('line-2', decoded)
+
     if (!decoded)
       return next(
         sendUnAuthorizedError(

@@ -42,8 +42,8 @@ export const configs = {
   PAYSTACK_SECRET_KEY: process.env.PAYSTACK_SECRET_KEY || '',
   PAYSTACK_PUBLIC_KEY: process.env.PAYSTACK_PUBLIC_KEY || '',
 
-  FLW_SECRET_KEY: process.env.FLW_SECRET_KEY || "",
-  FLW_PUBLIC_KEY: process.env.FLW_PUBLIC_KEY || "",
+  FLW_SECRET_KEY: process.env.FLW_SECRET_KEY || '',
+  FLW_PUBLIC_KEY: process.env.FLW_PUBLIC_KEY || '',
 }
 
 export default configs

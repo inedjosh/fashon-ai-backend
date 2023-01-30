@@ -16,7 +16,7 @@ axios.defaults.timeout = 25000000
 export const getRequest = async ({ endpoint, headers }: ApiRequest) => {
   try {
     let response
-    console.log(headers)
+
     if (headers) {
       response = await axios.request({
         url: endpoint,
@@ -40,14 +40,12 @@ export const getRequest = async ({ endpoint, headers }: ApiRequest) => {
 
 export const postRequest = async ({ endpoint, data, headers }: ApiRequest) => {
   try {
-    console.log({ ...headers })
-
     let response = await axios.request({
       url: endpoint,
       method: 'POST',
       data: data,
       headers: {
-       ...headers
+        ...headers,
       },
     })
 

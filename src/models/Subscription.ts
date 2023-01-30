@@ -5,7 +5,6 @@ export interface SubscriptionDocument extends Document {
   userId: UserDocument['id']
   trx_reference: string
   amount: number
-  trx_id: string
   trials: number
 }
 
@@ -21,15 +20,9 @@ export const SubscriptionSchema = new Schema({
   },
   amount: {
     type: Number,
-    required: true,
-  },
-  trx_id: {
-    type: String,
-    required: true,
   },
   trials: {
     type: Number,
-    required: true,
   },
 })
 

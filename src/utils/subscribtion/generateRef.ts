@@ -1,12 +1,12 @@
-export default  () => {
+export default () => {
   const characters =
-    "A65fjGFoJ648364deB56jfhf78bcfg9CDE1234FGswxyHIJKLVWXYZahijklmMNOtuvPQRSTUnopqrz0";
+    'A65fjGFoJ648364deB56jfhf78bcfg9CDE1234FGswxyHIJKLVWXYZahijklmMNOtuvPQRSTUnopqrz0'
 
-  let ref = "";
+  let ref = ''
 
   for (let i = 0; i < 20; i++) {
-    ref += `${characters.charAt(Math.floor(Math.random() * 40))}`;
+    ref += `${characters.charAt(Math.floor(Math.random() * 40))}`
   }
 
-  return `INTERIOR_AI_${ref}`;
-};
+  return `INTERIOR_AI_${ref}`
+}

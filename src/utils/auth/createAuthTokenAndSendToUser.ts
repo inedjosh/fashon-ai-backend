@@ -33,8 +33,6 @@ export default async (res: Response, user: any, action: string) => {
 
   res.cookie('refresh_token', refresh_token, cookieOptions)
 
-  console.log(res.cookie)
-
   return sendSuccessApiResponse({
     res,
     statusCode: 200,
